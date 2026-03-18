@@ -12,16 +12,14 @@ const Hero = () => {
                         Prem Bhuvan — Full Stack Developer
                     </span>
 
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 text-[var(--color-text-bright)] leading-[1.1] opacity-0-init animate-fade-in-up animate-delay-100">
-                        Full Stack Developer building <br />
-                        <span className="text-[var(--color-primary)] font-light italic opacity-90">scalable, data-driven systems</span>
+                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-black mb-6 text-[var(--color-text-bright)] leading-[1.15] opacity-0-init animate-fade-in-up animate-delay-100 tracking-tight">
+                        Full Stack Developer <br />
+                        <span className="text-[var(--color-primary)] font-light italic opacity-90">& System Builder</span>
                     </h1>
 
-                    <p className="text-lg md:text-xl text-[var(--color-text-main)] max-w-2xl leading-relaxed mb-4 opacity-0-init animate-fade-in-up animate-delay-200 font-medium tracking-wide">
-                        I design and implement real-world applications using custom data structures, efficient algorithms, and clean architecture.
-                    </p>
-                    <p className="text-sm text-[var(--color-text-muted)] max-w-md italic mb-14 opacity-0-init animate-fade-in-up animate-delay-200 font-medium tracking-wide">
-                        From graph-based social systems to real-time platforms — I focus on performance, scalability, and clarity.
+                    <p className="text-lg md:text-xl text-[var(--color-text-main)] max-w-2xl leading-relaxed mb-6 opacity-0-init animate-fade-in-up animate-delay-200 font-medium">
+                        I build complete, end-to-end applications. <br />
+                        From designing clean user interfaces to architecting robust backend logic and managing efficient data structures.
                     </p>
 
                     <div className="flex flex-wrap items-center gap-4 opacity-0-init animate-fade-in-up animate-delay-300">

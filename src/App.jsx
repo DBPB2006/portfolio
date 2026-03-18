@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 import ProjectView from './components/ProjectView';
 import MemoryBookView from './components/MemoryBookView';
 import SkillsBox from './components/SkillsBox';
+import WhatIDo from './components/WhatIDo';
 
 function MainLayout() {
   return (
@@ -22,23 +23,41 @@ function MainLayout() {
       <Navbar />
 
       <main className="relative z-10 flex flex-col pt-24">
-        <div id="hero"><Hero /></div>
+        {/* Hero Section */}
+        <header id="hero" className="mb-20">
+          <Hero />
+        </header>
 
-        {/* Mind & Toolkit: 40/60 Matrix Layout */}
-        <section className="max-w-7xl mx-auto px-4 py-8 md:py-16 w-full flex flex-col md:flex-row gap-8 md:gap-12 items-stretch">
-          <div id="about" className="w-full md:basis-[40%] flex flex-col min-h-[680px]">
-            <About />
-          </div>
-          <div id="skills" className="w-full md:basis-[60%] relative flex justify-center items-center min-h-[680px]">
-            <SkillsBox />
+        {/* Main Grid: About & What I Do (Left) | Toolkit (Right) */}
+        <section className="max-w-7xl mx-auto px-4 py-20 w-full mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            
+            {/* Left Column: About + What I Do */}
+            <div className="flex flex-col space-y-6">
+              <div id="about">
+                <About />
+              </div>
+              <div id="whatido">
+                <WhatIDo />
+              </div>
+            </div>
+
+            {/* Right Column: Toolkit */}
+            <div id="skills" className="flex justify-center items-center w-full h-full">
+              <SkillsBox />
+            </div>
+
           </div>
         </section>
 
-        <div id="projects"><Projects /></div>
-        <div id="training"><Training /></div>
-        <div id="certifications"><Certifications /></div>
-        <div id="extracurricular"><ExtraCurriculars /></div>
-        <div id="education"><Education /></div>
+        {/* Remaining Sections */}
+        <div className="flex flex-col space-y-20 py-20">
+          <section id="projects"><Projects /></section>
+          <section id="training"><Training /></section>
+          <section id="certifications"><Certifications /></section>
+          <section id="extracurricular"><ExtraCurriculars /></section>
+          <section id="education"><Education /></section>
+        </div>
       </main>
 
       <Footer />

@@ -40,7 +40,33 @@ const skillsData = [
 
 ];
 
-
+const skillCategories = [
+  {
+    title: "Interactive Frontend Systems",
+    tools: "React, Tailwind, HTML, CSS, JS",
+    description: "Building dynamic, accessible, and responsive user interfaces."
+  },
+  {
+    title: "Scalable Backend Systems",
+    tools: "Node.js, Express, PHP",
+    description: "Architecting secure, robust APIs and server-side logic."
+  },
+  {
+    title: "Data Management & Storage",
+    tools: "MySQL, MongoDB, PostgreSQL",
+    description: "Designing structured schemas and optimizing query performance."
+  },
+  {
+    title: "Core Logic & Performance",
+    tools: "C, C++, Java",
+    description: "Implementing optimized algorithms and complex data structures."
+  },
+  {
+    title: "Development Workflow",
+    tools: "Git, GitHub, Linux, Postman",
+    description: "Ensuring reliable version control, API testing, and deployment."
+  }
+];
 
 export default function SkillsBox() {
   const [isHovered, setIsHovered] = useState(false);
@@ -48,7 +74,7 @@ export default function SkillsBox() {
 
   // Deterministic physics for the popcorn effect
   const skillsWithPhysics = useMemo(() => skillsData.map((skill) => {
-    const arcX = (Math.random() - 0.5) * 200; 
+    const arcX = (Math.random() - 0.5) * 200;
     const arcHeight = -180 - Math.random() * 120;
     const duration = 3.5 + Math.random() * 2; // Slower animation speed
     const delay = Math.random() * 5;
@@ -59,7 +85,7 @@ export default function SkillsBox() {
 
   // Precompute all skill targets in a concentric arc layout
   const allSkillsWithTargets = useMemo(() => {
-    const radius = 260; 
+    const radius = 260;
     const spread = 1.6; // Slightly increased from 1.4 to accommodate more icons
     const centerAngle = Math.PI / 2;
 
@@ -85,7 +111,7 @@ export default function SkillsBox() {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative w-full min-h-[650px] flex flex-col items-center justify-end select-none pb-12"
+      className="relative w-full flex flex-col items-center select-none pt-64 pb-12"
     >
       {/* Editorial Header - Compact */}
       <div className="z-50 text-center mb-20 pointer-events-none">
@@ -101,7 +127,7 @@ export default function SkillsBox() {
         </div>
       </div>
 
-      <div className="relative w-full flex justify-center items-end min-h-[520px]">
+      <div className="relative w-full flex justify-center pt-20">
         {/* Structural Wrapper: Anchors both the toolbox and the icon arc */}
         <div className="relative w-[360px] h-[220px] mb-4">
 
@@ -235,36 +261,27 @@ export default function SkillsBox() {
         </div>
       </div>
 
-      {/* New Section: What I build with these tools */}
-      <div className="w-full mt-12 border-t border-[var(--color-border)] pt-12">
+      {/* Capability-based Tool Categories */}
+      <div className="w-full py-12">
         <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[var(--color-text-bright)] mb-10 text-center">
           What I build with these tools
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="p-6 border border-[var(--color-border)] bg-white/50 hover:bg-white transition-colors group">
-            <span className="text-[10px] font-black text-[var(--color-primary)] mb-3 block uppercase tracking-widest group-hover:translate-x-1 transition-transform">React</span>
-            <p className="text-[11px] font-medium leading-relaxed text-[var(--color-text-bright)] italic">
-              "Interactive and dynamic user interfaces with complex state management."
-            </p>
-          </div>
-          <div className="p-6 border border-[var(--color-border)] bg-white/50 hover:bg-white transition-colors group">
-            <span className="text-[10px] font-black text-[var(--color-primary)] mb-3 block uppercase tracking-widest group-hover:translate-x-1 transition-transform">PHP</span>
-            <p className="text-[11px] font-medium leading-relaxed text-[var(--color-text-bright)] italic">
-              "Robust backend systems implemented with custom logic and advanced DSA."
-            </p>
-          </div>
-          <div className="p-6 border border-[var(--color-border)] bg-white/50 hover:bg-white transition-colors group">
-            <span className="text-[10px] font-black text-[var(--color-primary)] mb-3 block uppercase tracking-widest group-hover:translate-x-1 transition-transform">Node.js</span>
-            <p className="text-[11px] font-medium leading-relaxed text-[var(--color-text-bright)] italic">
-              "Real-time, event-driven, and highly scalable distributed applications."
-            </p>
-          </div>
-          <div className="p-6 border border-[var(--color-border)] bg-white/50 hover:bg-white transition-colors group">
-            <span className="text-[10px] font-black text-[var(--color-primary)] mb-3 block uppercase tracking-widest group-hover:translate-x-1 transition-transform">MySQL / JSON</span>
-            <p className="text-[11px] font-medium leading-relaxed text-[var(--color-text-bright)] italic">
-              "Efficient data modeling and retrieval systems designed for high performance."
-            </p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories.map((category, idx) => (
+            <div key={idx} className="p-6 border border-[var(--color-border)] bg-white/50 hover:bg-white hover:border-[var(--color-text-bright)] hover:shadow-[4px_4px_0px_var(--color-border)] transition-all group flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-black text-[var(--color-primary)] mb-2 block uppercase tracking-widest group-hover:translate-x-1 transition-transform">
+                  {category.title}
+                </span>
+                <p className="text-[12px] font-bold text-[var(--color-text-bright)] mb-3">
+                  {category.tools}
+                </p>
+              </div>
+              <p className="text-[11px] font-medium leading-relaxed text-[var(--color-text-main)]">
+                {category.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

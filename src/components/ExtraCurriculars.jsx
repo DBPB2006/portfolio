@@ -3,7 +3,7 @@ import { ExternalLink, Activity } from 'lucide-react';
 
 const ExtraCurriculars = () => {
     return (
-        <section id="extracurricular" className="py-24 px-4 relative max-w-6xl mx-auto w-full group">
+        <section id="extracurricular" className="py-16 px-4 relative max-w-5xl mx-auto w-full group">
             <div className="flex flex-col md:flex-row gap-12 items-start border-t-2 border-[var(--color-text-bright)] pt-12">
                 <div className="md:w-1/3 sticky top-32">
                     <span className="text-[var(--color-primary)] font-bold tracking-widest uppercase text-xs mb-4 block">Engagement</span>

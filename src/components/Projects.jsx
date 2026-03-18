@@ -116,7 +116,7 @@ const ProjectCaseStudy = ({ project, isReversed }) => {
                     <p className={`text-xl md:text-2xl font-medium text-[var(--color-text-main)] leading-relaxed italic border-l-4 pl-6 opacity-90 ${isReversed ? 'lg:text-right lg:border-l-0 lg:border-r-4 lg:pl-0 lg:pr-6 border-[var(--color-primary)]' : 'border-[var(--color-secondary)]'}`}>
                         {project.subtitle}
                     </p>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 flex-grow">
                         <div className="p-8 border-[1.5px] border-[var(--color-text-bright)] bg-white shadow-[8px_8px_0px_var(--color-primary)] flex flex-col h-full gap-8 justify-between">
                             <div>
@@ -133,7 +133,7 @@ const ProjectCaseStudy = ({ project, isReversed }) => {
                                     ))}
                                 </ul>
                             </div>
-                            
+
                             <div className="pt-6 border-t border-[var(--color-border)]">
                                 <h5 className="font-outfit text-[11px] font-black uppercase tracking-widest mb-2 opacity-60">
                                     {project.whyTitle}
