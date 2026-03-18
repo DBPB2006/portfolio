@@ -10,58 +10,63 @@ import {
 const skillsData = [
 
   // OUTER ARC — Frameworks / Libraries
-  { id: 'react', name: 'React', icon: SiReact, tier: 0 },
-  { id: 'node', name: 'Node.js', icon: SiNodedotjs, tier: 0 },
-  { id: 'express', name: 'Express.js', icon: SiExpress, tier: 0 },
-  { id: 'tailwind', name: 'Tailwind CSS', icon: SiTailwindcss, tier: 0 },
+  { id: 'react', name: 'React', icon: SiReact, tier: 0, category: 'frontend' },
+  { id: 'node', name: 'Node.js', icon: SiNodedotjs, tier: 0, category: 'backend' },
+  { id: 'express', name: 'Express.js', icon: SiExpress, tier: 0, category: 'backend' },
+  { id: 'tailwind', name: 'Tailwind CSS', icon: SiTailwindcss, tier: 0, category: 'frontend' },
 
   // SECOND ARC — Web Technologies
-  { id: 'html', name: 'HTML5', icon: SiHtml5, tier: 1 },
-  { id: 'css', name: 'CSS3', icon: SiCss, tier: 1 },
-  { id: 'js', name: 'JavaScript', icon: SiJavascript, tier: 1 },
+  { id: 'html', name: 'HTML5', icon: SiHtml5, tier: 1, category: 'frontend' },
+  { id: 'css', name: 'CSS3', icon: SiCss, tier: 1, category: 'frontend' },
+  { id: 'js', name: 'JavaScript', icon: SiJavascript, tier: 1, category: 'frontend' },
 
   // THIRD ARC — Programming Languages
-  { id: 'php', name: 'PHP', icon: SiPhp, tier: 2 },
-  { id: 'cpp', name: 'C++', icon: SiCplusplus, tier: 2 },
-  { id: 'java', name: 'Java', icon: SiOpenjdk, tier: 2 },
-  { id: 'c', name: 'C', icon: SiC, tier: 2 },
+  { id: 'php', name: 'PHP', icon: SiPhp, tier: 2, category: 'backend' },
+  { id: 'cpp', name: 'C++', icon: SiCplusplus, tier: 2, category: 'core' },
+  { id: 'java', name: 'Java', icon: SiOpenjdk, tier: 2, category: 'core' },
+  { id: 'c', name: 'C', icon: SiC, tier: 2, category: 'core' },
 
   // FOURTH ARC — Databases
-  { id: 'mongo', name: 'MongoDB', icon: SiMongodb, tier: 3 },
-  { id: 'pgsql', name: 'PostgreSQL', icon: SiPostgresql, tier: 3 },
-  { id: 'mysql', name: 'MySQL', icon: SiMysql, tier: 3 },
+  { id: 'mongo', name: 'MongoDB', icon: SiMongodb, tier: 3, category: 'data' },
+  { id: 'pgsql', name: 'PostgreSQL', icon: SiPostgresql, tier: 3, category: 'data' },
+  { id: 'mysql', name: 'MySQL', icon: SiMysql, tier: 3, category: 'data' },
 
   // INNER ARC — Tools
-  { id: 'git', name: 'Git', icon: SiGit, tier: 4 },
-  { id: 'github', name: 'GitHub', icon: SiGithub, tier: 4 },
-  { id: 'linux', name: 'Linux CLI', icon: SiLinux, tier: 4 },
-  { id: 'postman', name: 'Postman', icon: SiPostman, tier: 4 },
-  { id: 'xampp', name: 'XAMPP', icon: SiXampp, tier: 4 },
+  { id: 'git', name: 'Git', icon: SiGit, tier: 4, category: 'workflow' },
+  { id: 'github', name: 'GitHub', icon: SiGithub, tier: 4, category: 'workflow' },
+  { id: 'linux', name: 'Linux CLI', icon: SiLinux, tier: 4, category: 'workflow' },
+  { id: 'postman', name: 'Postman', icon: SiPostman, tier: 4, category: 'workflow' },
+  { id: 'xampp', name: 'XAMPP', icon: SiXampp, tier: 4, category: 'workflow' },
 
 ];
 
 const skillCategories = [
   {
+    id: "frontend",
     title: "Interactive Frontend Systems",
     tools: "React, Tailwind, HTML, CSS, JS",
     description: "Building dynamic, accessible, and responsive user interfaces."
   },
   {
+    id: "backend",
     title: "Scalable Backend Systems",
     tools: "Node.js, Express, PHP",
     description: "Architecting secure, robust APIs and server-side logic."
   },
   {
+    id: "data",
     title: "Data Management & Storage",
     tools: "MySQL, MongoDB, PostgreSQL",
     description: "Designing structured schemas and optimizing query performance."
   },
   {
+    id: "core",
     title: "Core Logic & Performance",
     tools: "C, C++, Java",
     description: "Implementing optimized algorithms and complex data structures."
   },
   {
+    id: "workflow",
     title: "Development Workflow",
     tools: "Git, GitHub, Linux, Postman",
     description: "Ensuring reliable version control, API testing, and deployment."
@@ -71,6 +76,20 @@ const skillCategories = [
 export default function SkillsBox() {
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredIconId, setHoveredIconId] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+
+  React.useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Extract the active category globally based on the hovered icon
+  const activeCategory = useMemo(() => {
+    if (!hoveredIconId) return null;
+    const item = skillsData.find(s => s.id === hoveredIconId);
+    return item ? item.category : null;
+  }, [hoveredIconId]);
 
   // Deterministic physics for the popcorn effect
   const skillsWithPhysics = useMemo(() => skillsData.map((skill) => {
@@ -105,31 +124,33 @@ export default function SkillsBox() {
         targetY: y,
       };
     });
-  }, [skillsWithPhysics]);
+  }, [skillsWithPhysics, windowWidth]);
 
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative w-full flex flex-col items-center select-none pt-64 pb-12"
+      className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center w-full select-none"
     >
-      {/* Editorial Header - Compact */}
-      <div className="z-50 text-center mb-20 pointer-events-none">
-        <h2 className="text-3xl md:text-4xl font-black font-outfit text-[var(--color-text-bright)] mb-2 tracking-tighter uppercase italic opacity-95">
-          Toolkit
-        </h2>
-        <div className="flex items-center justify-center gap-4">
-          <div className="h-px w-6 bg-[var(--color-text-muted)] opacity-20"></div>
-          <p className="text-[var(--color-text-muted)] text-[7px] font-bold tracking-[0.4em] uppercase">
-            ARC PATTERN
-          </p>
-          <div className="h-px w-6 bg-[var(--color-text-muted)] opacity-20"></div>
+      {/* LEFT COLUMN: Toolkit Arc + Box */}
+      <div className="relative w-full flex flex-col items-center pt-0 pb-12">
+        {/* Editorial Header - Compact */}
+        <div className="z-50 text-center mb-20 pointer-events-none">
+          <h2 className="text-3xl md:text-4xl font-black font-outfit text-[var(--color-text-bright)] mb-2 tracking-tighter uppercase italic opacity-95">
+            Toolkit
+          </h2>
+          <div className="flex items-center justify-center gap-4">
+            <div className="h-px w-6 bg-[var(--color-text-muted)] opacity-20"></div>
+            <p className="text-[var(--color-text-muted)] text-[7px] font-bold tracking-[0.4em] uppercase">
+              ARC PATTERN
+            </p>
+            <div className="h-px w-6 bg-[var(--color-text-muted)] opacity-20"></div>
+          </div>
         </div>
-      </div>
 
-      <div className="relative w-full flex justify-center pt-20">
-        {/* Structural Wrapper: Anchors both the toolbox and the icon arc */}
-        <div className="relative w-[360px] h-[220px] mb-4">
+        <div className="relative w-full flex justify-center pt-40 sm:pt-56 md:pt-64 lg:pt-72 overflow-hidden sm:overflow-visible">
+          {/* Structural Wrapper: Anchors both the toolbox and the icon arc */}
+          <div className="relative w-[360px] h-[220px] transform scale-[0.55] sm:scale-[0.7] md:scale-[0.85] xl:scale-100 origin-top mb-[-100px] sm:mb-[-60px] md:mb-[-20px] xl:mb-4">
 
           {/* 3D SOLID PRISM TOOLBOX */}
           <div className="absolute inset-0 z-40 shadow-2xl"
@@ -229,6 +250,7 @@ export default function SkillsBox() {
                     onMouseLeave={() => setHoveredIconId(null)}
                     whileHover={isHovered ? {
                       backgroundColor: 'var(--color-primary)',
+                      scale: 1.05,
                       y: -4,
                       transition: { duration: 0.2 }
                     } : {}}
@@ -260,28 +282,48 @@ export default function SkillsBox() {
           </div>
         </div>
       </div>
+    </div>
 
-      {/* Capability-based Tool Categories */}
-      <div className="w-full py-12">
-        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[var(--color-text-bright)] mb-10 text-center">
+      {/* RIGHT COLUMN: Capability-based Tool Categories */}
+      <div className="w-full">
+        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[var(--color-text-bright)] mb-10 text-center lg:text-left">
           What I build with these tools
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((category, idx) => (
-            <div key={idx} className="p-6 border border-[var(--color-border)] bg-white/50 hover:bg-white hover:border-[var(--color-text-bright)] hover:shadow-[4px_4px_0px_var(--color-border)] transition-all group flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] font-black text-[var(--color-primary)] mb-2 block uppercase tracking-widest group-hover:translate-x-1 transition-transform">
-                  {category.title}
-                </span>
-                <p className="text-[12px] font-bold text-[var(--color-text-bright)] mb-3">
-                  {category.tools}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {skillCategories.map((category) => {
+            const isActive = activeCategory === category.id;
+            const isDimmed = activeCategory && !isActive;
+
+            return (
+              <div
+                key={category.id}
+                className={`relative p-6 border border-[var(--color-border)] bg-[var(--color-bg-surface)] group flex flex-col justify-between card-glow
+                  ${isActive ? 'elevation-active z-10 scale-105' : 'elevation-base hover:elevation-hover'}
+                  ${isDimmed ? 'opacity-40' : 'opacity-100'}
+                  transition-all duration-300
+                `}
+              >
+                <div className="card-accent-line"></div>
+                <div className="space-y-3 mb-4">
+                  <span className={`text-[10px] font-black block uppercase tracking-wide transition-all duration-300
+                    ${isActive ? 'text-[var(--color-primary)] tracking-widest' : 'text-[var(--color-text-muted)] group-hover:text-[var(--color-primary)] group-hover:tracking-widest'}
+                  `}>
+                    {category.title}
+                  </span>
+                  <h4 className={`text-[14px] font-bold transition-colors duration-300
+                    ${isActive ? 'text-[var(--color-text-bright)]' : 'text-[var(--color-text-main)] group-hover:text-[var(--color-text-bright)]'}
+                  `}>
+                    {category.tools}
+                  </h4>
+                </div>
+                <p className={`text-[12px] font-medium leading-relaxed transition-colors duration-300
+                  ${isActive ? 'text-[var(--color-text-main)]' : 'text-[var(--color-text-muted)]'}
+                `}>
+                  {category.description}
                 </p>
               </div>
-              <p className="text-[11px] font-medium leading-relaxed text-[var(--color-text-main)]">
-                {category.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

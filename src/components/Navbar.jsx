@@ -15,7 +15,14 @@ const Navbar = () => {
     const scrollTo = (id) => {
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            const navOffset = 100; // Account for fixed navbar height
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            window.scrollTo({
+                top: elementPosition - navOffset,
+                behavior: 'smooth'
+            });
         }
     };
 
@@ -26,6 +33,7 @@ const Navbar = () => {
                     prem<span className="text-[var(--color-primary)] text-3xl leading-none">.</span>
                 </button>
 
+                {/* DESKTOP NAV */}
                 <nav className="hidden lg:flex items-center gap-6 font-medium text-[var(--color-text-main)] text-[10px] uppercase tracking-[0.2em] font-outfit">
                     <button onClick={() => scrollTo('about')} className="hover:text-[var(--color-primary)] transition-colors border-b-2 border-transparent hover:border-[var(--color-primary)] pb-1">Mind</button>
                     <button onClick={() => scrollTo('skills')} className="hover:text-[var(--color-primary)] transition-colors border-b-2 border-transparent hover:border-[var(--color-primary)] pb-1">Toolkit</button>
@@ -44,10 +52,21 @@ const Navbar = () => {
                     <a
                         href="/cv.pdf"
                         download="Prem_Bhuvan_CV.pdf"
-                        className="hidden md:flex items-center gap-2 text-xs font-black uppercase tracking-widest px-4 py-2 border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200 rounded-none font-outfit"
+                        className="hidden sm:flex items-center gap-2 text-xs font-black uppercase tracking-widest px-4 py-2 border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200 rounded-none font-outfit"
                     >
                         <Download className="w-3.5 h-3.5" /> CV
                     </a>
+                </div>
+            </div>
+
+            {/* MOBILE NAV: Simplified horizontal scroll strip for small devices */}
+            <div className={`lg:hidden w-full overflow-x-auto border-t border-[var(--color-border)]/50 mt-4 transition-all duration-300 ${scrolled ? 'opacity-100 h-auto py-3' : 'opacity-0 h-0 py-0 overflow-hidden'}`}>
+                <div className="flex px-4 gap-6 min-w-max items-center justify-start text-[9px] uppercase tracking-[0.2em] font-outfit font-black text-[var(--color-text-main)]">
+                    <button onClick={() => scrollTo('about')} className="hover:text-[var(--color-primary)] transition-colors">Mind</button>
+                    <button onClick={() => scrollTo('skills')} className="hover:text-[var(--color-primary)] transition-colors">Toolkit</button>
+                    <button onClick={() => scrollTo('projects')} className="hover:text-[var(--color-primary)] transition-colors">Builds</button>
+                    <button onClick={() => scrollTo('training')} className="hover:text-[var(--color-primary)] transition-colors">Credentials</button>
+                    <button onClick={() => scrollTo('education')} className="hover:text-[var(--color-primary)] transition-colors">Journey</button>
                 </div>
             </div>
         </header>

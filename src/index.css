@@ -173,3 +173,59 @@ html {
   height: 1px;
   background-color: var(--color-text-bright);
 }
+
+/* System Cards - Depth and Interaction */
+.elevation-base {
+  box-shadow: 2px 2px 0px var(--color-border);
+  transform: translateY(0);
+}
+
+.elevation-hover {
+  box-shadow: 6px 6px 0px rgba(28, 25, 23, 0.08);
+  transform: translateY(-4px);
+  border-color: var(--color-text-bright);
+}
+
+.elevation-active {
+  box-shadow: 0 0 20px rgba(223, 152, 112, 0.15), 6px 6px 0px var(--color-primary);
+  transform: translateY(-6px);
+  border-color: var(--color-primary);
+}
+
+/* Accent Line for System Cards */
+.card-accent-line {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  bottom: -1px;
+  width: 3px;
+  background-color: var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.group:hover .card-accent-line,
+.elevation-active .card-accent-line {
+  opacity: 1;
+}
+
+/* Soft Glow System for Cards */
+.card-glow {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 20px var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.elevation-active.card-glow::before {
+  opacity: 0.2;
+}
