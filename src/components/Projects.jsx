@@ -29,7 +29,7 @@ const spotlightProjects = [
         stack: {
             frontend: "React 19, Tailwind, Framer Motion, GSAP, Redux",
             backend: "Node.js, Express, MongoDB, Socket.io, Razorpay",
-            tooling: "Vite, ESLint, Git"
+            tooling: "Vite, Git"
         },
         outcomes: [
             "Full-stack architecture",
@@ -268,7 +268,7 @@ const Projects = () => {
                                 {proj.title}
                             </h3>
                         </div>
-                        
+
                         <div className="lg:w-2/3 relative z-10">
                             {proj.subtitle && (
                                 <p className="text-[14px] font-bold tracking-wide leading-relaxed text-[var(--color-text-main)] border-l-4 border-[var(--color-primary)] pl-6 mb-8 italic">
