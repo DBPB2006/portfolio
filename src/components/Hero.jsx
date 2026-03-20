@@ -8,10 +8,6 @@ const Hero = () => {
 
                 {/* Left Side: Text Focus */}
                 <div className="flex flex-col items-start order-2 md:order-1 text-left opacity-0-init animate-fade-in-up">
-                    <span className="text-[var(--color-primary)] font-bold tracking-widest uppercase text-xs mb-6 border-b-2 border-[var(--color-primary)] pb-1 inline-block">
-                        Prem Bhuvan — Full Stack Developer
-                    </span>
-
                     <h1 className="text-4xl md:text-5xl lg:text-7xl font-black mb-6 text-[var(--color-text-bright)] leading-[1.15] opacity-0-init animate-fade-in-up animate-delay-100 tracking-tight">
                         Full Stack Developer <br />
                         <span className="text-[var(--color-primary)] font-light italic opacity-90">& System Builder</span>
@@ -22,13 +18,34 @@ const Hero = () => {
                         From designing clean user interfaces to architecting robust backend logic and managing efficient data structures.
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-4 opacity-0-init animate-fade-in-up animate-delay-300">
-                        <a href="#projects" className="btn-editorial btn-primary">
-                            View Projects →
+                    <div className="flex flex-wrap items-center gap-4 md:gap-6 opacity-0-init animate-fade-in-up animate-delay-300">
+                        <a href="#projects" className="btn-editorial btn-primary !px-10 !py-5 shadow-[6px_6px_0px_var(--color-text-bright)] hover:shadow-none translate-y-[-4px] active:translate-y-0 transition-all">
+                            View Case Studies
                         </a>
-                        <a href="mailto:dbprembhuvan@gmail.com" className="btn-editorial btn-secondary flex items-center gap-2">
-                            Contact Me
+                        <a
+                            href="/cv.pdf"
+                            download="Prem_Bhuvan_CV.pdf"
+                            className="btn-editorial btn-secondary group flex items-center gap-3 border-2 border-[var(--color-text-bright)] !px-8 !py-5"
+                        >
+                            <Download className="w-5 h-5 group-hover:animate-bounce" />
+                            Download CV
                         </a>
+                    </div>
+
+                    {/* Recruiter Quick Stats */}
+                    <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 opacity-0-init animate-fade-in-up animate-delay-300 border-t border-[var(--color-border)] pt-10">
+                        <div className="group">
+                            <h4 className="text-2xl font-black text-[var(--color-text-bright)] mb-1">2+</h4>
+                            <p className="text-[10px] uppercase font-black tracking-widest text-[var(--color-primary)] opacity-80 decoration-2 underline decoration-[var(--color-secondary)] underline-offset-4">Full-Stack Apps</p>
+                        </div>
+                        <div className="group">
+                            <h4 className="text-2xl font-black text-[var(--color-text-bright)] mb-1">100+</h4>
+                            <p className="text-[10px] uppercase font-black tracking-widest text-[var(--color-primary)] opacity-80 decoration-2 underline decoration-[var(--color-secondary)] underline-offset-4">DSA Solved</p>
+                        </div>
+                        <div className="group col-span-2 md:col-span-1 border-l border-[var(--color-border)] pl-8">
+                            <h4 className="text-2xl font-black text-[var(--color-text-bright)] mb-1">Full-Stack</h4>
+                            <p className="text-[10px] uppercase font-black tracking-widest text-[var(--color-primary)] opacity-80 decoration-2 underline decoration-[var(--color-secondary)] underline-offset-4">System Focus</p>
+                        </div>
                     </div>
 
                     <div className="mt-12 flex items-center gap-4 opacity-0-init animate-fade-in-up animate-delay-300">

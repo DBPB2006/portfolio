@@ -44,7 +44,7 @@ function MainLayout() {
         </section>
 
         {/* ROW 2: Toolkit & Tool Categories (Wrapped inside SkillsBox) */}
-        <section id="skills" className="max-w-7xl mx-auto px-4 py-8 w-full mb-8 scroll-mt-24">
+        <section id="skills" className="max-w-7xl mx-auto px-4 py-20 w-full mb-16 scroll-mt-24">
           <SkillsBox />
         </section>
 

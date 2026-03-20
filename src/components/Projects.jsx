@@ -42,11 +42,11 @@ const spotlightProjects = [
     },
     {
         id: "memory-book",
-        tag: "⭐ Featured Project",
+        tag: "Memory Lane",
         title: "Memory Book",
         subtitle: "A full-stack digital scrapbook platform built using custom data structures to manage friendships, memories, and time-based interactions efficiently.",
         timeline: "Jul 2025 - Aug 2025",
-        link: "https://github.com/DBPB2006",
+        link: "",
         github: "http://github.com/DBPB2006/MemoryBook.git",
         highlights: [
             "Implemented adjacency matrix for friendship graph modeling",
@@ -117,6 +117,21 @@ const ProjectCaseStudy = ({ project, isReversed }) => {
                         {project.subtitle}
                     </p>
 
+                    {/* ACTION CTAs for Recruiters */}
+                    <div className={`flex flex-wrap items-center gap-4 md:gap-6 pt-2 pb-4 ${isReversed ? 'lg:justify-end' : 'justify-start'}`}>
+                        {project.link && (
+                            <a href={project.link} target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[var(--color-primary)] border-2 border-[var(--color-primary)] text-white px-6 py-3 md:px-8 md:py-4 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:bg-transparent hover:text-[var(--color-primary)] transition-colors shadow-[4px_4px_0px_var(--color-text-bright)]">
+                                Live Demo <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
+                            </a>
+                        )}
+                        <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-white text-[var(--color-text-bright)] border-2 border-[var(--color-text-bright)] px-6 py-3 md:px-8 md:py-4 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] hover:bg-[var(--color-secondary)] hover:border-[var(--color-secondary)] hover:text-white transition-colors shadow-[4px_4px_0px_var(--color-secondary)]">
+                            Source Code <Github className="w-4 h-4 md:w-5 md:h-5" />
+                        </a>
+                        <Link to={`/project/${project.id}`} className="group flex items-center gap-3 text-[var(--color-text-bright)] hover:text-[var(--color-primary)] font-black uppercase text-[10px] md:text-xs tracking-[0.2em] transition-colors ml-2 md:ml-4">
+                            View Case Study <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-2 transition-transform" />
+                        </Link>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 flex-grow">
                         <div className="p-8 border-[1.5px] border-[var(--color-text-bright)] bg-white shadow-[8px_8px_0px_var(--color-primary)] flex flex-col h-full gap-8 justify-between">
                             <div>
@@ -184,38 +199,22 @@ const ProjectCaseStudy = ({ project, isReversed }) => {
                 </div>
             </div>
 
-            {/* TECH STACK & LINKS - High Contrast */}
-            <div className="border-t-2 border-b-2 border-[var(--color-text-bright)] py-10 mb-12 bg-[var(--color-bg-base)]">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center px-4">
-                    <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div>
-                            <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] mb-2 block">Frontend</span>
-                            <p className="text-[11px] font-bold uppercase">{project.stack.frontend}</p>
-                        </div>
-                        <div className="md:border-l md:border-[var(--color-border)] md:pl-8">
-                            <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] mb-2 block">Backend</span>
-                            <p className="text-[11px] font-bold uppercase">{project.stack.backend}</p>
-                        </div>
-                        <div className="md:border-l md:border-[var(--color-border)] md:pl-8">
-                            <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] mb-2 block">Tooling</span>
-                            <p className="text-[11px] font-bold uppercase">{project.stack.tooling}</p>
-                        </div>
+            {/* TECH STACK - High Contrast */}
+            <div className="border-t-2 border-b-2 border-[var(--color-text-bright)] py-10 bg-[var(--color-bg-base)]">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+                    <div>
+                        <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] mb-2 block">Frontend</span>
+                        <p className="text-[11px] font-bold uppercase">{project.stack.frontend}</p>
                     </div>
-                    <div className="lg:col-span-3 flex lg:justify-end gap-6">
-                        <a href={project.link} target="_blank" rel="noreferrer" className="p-3 border-2 border-[var(--color-text-bright)] bg-[var(--color-primary)] text-white hover:bg-[var(--color-text-bright)] transition-colors">
-                            <ExternalLink className="w-5 h-5" />
-                        </a>
-                        <a href={project.github} target="_blank" rel="noreferrer" className="p-3 border-2 border-[var(--color-text-bright)] bg-white hover:bg-[var(--color-secondary)] transition-colors">
-                            <Github className="w-5 h-5 text-[var(--color-text-bright)]" />
-                        </a>
+                    <div className="md:border-l md:border-[var(--color-border)] md:pl-8">
+                        <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] mb-2 block">Backend</span>
+                        <p className="text-[11px] font-bold uppercase">{project.stack.backend}</p>
+                    </div>
+                    <div className="md:border-l md:border-[var(--color-border)] md:pl-8">
+                        <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] mb-2 block">Tooling</span>
+                        <p className="text-[11px] font-bold uppercase">{project.stack.tooling}</p>
                     </div>
                 </div>
-            </div>
-
-            <div className={`flex ${isReversed ? 'lg:justify-end' : ''}`}>
-                <Link to={`/project/${project.id}`} className="inline-flex items-center gap-4 text-[var(--color-text-bright)] font-black uppercase text-xs tracking-[0.2em] hover:text-[var(--color-primary)] transition-colors group">
-                    View Comprehensive Case Study <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                </Link>
             </div>
         </div>
     );
@@ -251,39 +250,46 @@ const Projects = () => {
                 </div>
             </div>
 
-            <div className="space-y-0">
+            <div className="space-y-12">
                 {otherProjects.map((proj, idx) => (
                     <div
                         key={idx}
-                        className="group border-b-2 border-[var(--color-text-bright)] py-20 flex flex-col lg:flex-row gap-12 transition-all hover:bg-[#f8f6f0] px-4 -mx-4 opacity-0-init animate-fade-in-up"
+                        className="group border-2 border-[var(--color-text-bright)] bg-white p-8 md:p-12 flex flex-col lg:flex-row gap-12 transition-all shadow-[8px_8px_0px_var(--color-border)] hover:shadow-[12px_12px_0px_var(--color-primary)] hover:-translate-y-1 relative opacity-0-init animate-fade-in-up"
+                        style={{ animationDelay: `${idx * 150}ms` }}
                     >
-                        <div className="lg:w-1/3">
-                            <h3 className="text-3xl font-black text-[var(--color-text-bright)] font-outfit uppercase tracking-tighter mb-4">
-                                {proj.title}
-                            </h3>
-                            <span className="inline-block text-[9px] font-black text-white bg-[var(--color-text-bright)] px-3 py-1 uppercase tracking-widest">
+                        {/* Decorative corner tag */}
+                        <div className="absolute top-0 right-0 w-8 h-8 md:w-12 md:h-12 overflow-hidden border-b-2 border-l-2 border-[var(--color-text-bright)] bg-[var(--color-secondary)]/20 group-hover:bg-[var(--color-primary)] transition-colors"></div>
+
+                        <div className="lg:w-1/3 relative z-10 pt-4">
+                            <span className="inline-block text-[10px] font-black text-white bg-[var(--color-primary)] px-3 py-1.5 uppercase tracking-widest mb-6 shadow-[4px_4px_0px_var(--color-text-bright)]">
                                 {proj.role}
                             </span>
+                            <h3 className="text-3xl md:text-4xl font-black text-[var(--color-text-bright)] font-outfit uppercase tracking-tighter mb-4 leading-none">
+                                {proj.title}
+                            </h3>
                         </div>
-                        <div className="lg:w-2/3 space-y-6">
+                        
+                        <div className="lg:w-2/3 relative z-10">
                             {proj.subtitle && (
-                                <p className="text-[15px] font-medium leading-relaxed text-[var(--color-text-main)] italic border-l-4 border-[var(--color-primary)] pl-6 mb-8 py-2">
+                                <p className="text-[14px] font-bold tracking-wide leading-relaxed text-[var(--color-text-main)] border-l-4 border-[var(--color-primary)] pl-6 mb-8 italic">
                                     {proj.subtitle}
                                 </p>
                             )}
-                            <ul className="space-y-4 ml-6">
+                            <ul className="space-y-5 mb-10 ml-2">
                                 {proj.bullets.map((bullet, i) => (
-                                    <li key={i} className="flex gap-4 items-start">
-                                        <div className="w-1.5 h-1.5 mt-2 rounded-full bg-[var(--color-text-bright)] shrink-0"></div>
-                                        <span className="text-[14px] font-medium leading-relaxed text-[var(--color-text-main)]">
+                                    <li key={i} className="flex gap-5 items-start">
+                                        <div className="w-2.5 h-2.5 border-2 border-[var(--color-text-bright)] mt-1.5 rounded-none shrink-0 group-hover:bg-[var(--color-secondary)] transition-colors"></div>
+                                        <span className="text-[15px] font-medium leading-relaxed text-[var(--color-text-main)]">
                                             {bullet}
                                         </span>
                                     </li>
                                 ))}
                             </ul>
-                            <a href={proj.link} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-xs font-black uppercase tracking-widest hover:text-[var(--color-primary)] transition-colors mt-8">
-                                Examine Repository <ArrowRight className="w-4 h-4" />
-                            </a>
+                            <div className="pt-8 border-t-2 border-[var(--color-border)] flex">
+                                <a href={proj.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-4 text-sm md:text-base font-black uppercase tracking-widest text-[var(--color-primary)] border-2 border-[var(--color-primary)] px-8 py-4 bg-white shadow-[6px_6px_0px_var(--color-primary)] hover:shadow-none hover:translate-x-1.5 hover:translate-y-1.5 transition-all group/btn">
+                                    Examine Repository <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform" />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 ))}

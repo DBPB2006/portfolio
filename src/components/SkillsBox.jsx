@@ -132,12 +132,12 @@ export default function SkillsBox() {
     <div
       onMouseEnter={() => isDesktop && setIsHovered(true)}
       onMouseLeave={() => isDesktop && setIsHovered(false)}
-      className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start w-full select-none"
+      className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start w-full select-none pt-20"
     >
       {/* LEFT COLUMN: Toolkit Arc + Box */}
-      <div className="relative w-full flex flex-col items-center justify-center pt-0 pb-12 overflow-visible">
+      <div className="relative w-full flex flex-col items-center justify-center pt-8 pb-12 overflow-visible">
         {/* Editorial Header - Compact */}
-        <div className="z-50 text-center mb-10 pointer-events-none">
+        <div className="z-50 text-center mb-24 pointer-events-none">
           <h2 className="text-3xl md:text-4xl font-black font-outfit text-[var(--color-text-bright)] mb-2 tracking-tighter uppercase italic opacity-95">
             Toolkit
           </h2>
@@ -211,7 +211,7 @@ export default function SkillsBox() {
                     x: skill.targetX,
                     y: skill.targetY,
                     rotate: 0,
-                    scale: 1 - (skill.tier * 0.04), // Progressive scaling: 1, 0.96, 0.92, 0.88, 0.84
+                    scale: 1, // Uniform scaling for all icons
                     opacity: 1,
                     transition: {
                       type: "spring",
@@ -287,8 +287,8 @@ export default function SkillsBox() {
       </div>
 
       {/* RIGHT COLUMN: Capability-based Tool Categories */}
-      <div className="w-full">
-        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[var(--color-text-bright)] mb-10 text-center lg:text-left">
+      <div className="w-full pt-8">
+        <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[var(--color-text-bright)] mb-24 text-center lg:text-left">
           What I build with these tools
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

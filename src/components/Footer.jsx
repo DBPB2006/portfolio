@@ -18,11 +18,11 @@ const Footer = () => {
                         </span>
                         dbprembhuvan@gmail.com
                     </a>
-                    <a href="tel:+9188472262327" className="group flex items-center gap-4 text-[var(--color-text-main)] hover:text-[var(--color-secondary)] font-bold text-lg transition-colors">
+                    <a href="tel:+918847262327" className="group flex items-center gap-4 text-[var(--color-text-main)] hover:text-[var(--color-secondary)] font-bold text-lg transition-colors">
                         <span className="p-3 border border-[var(--color-border)] rounded-full group-hover:border-[var(--color-secondary)] transition-colors">
                             <Phone className="w-5 h-5" />
                         </span>
-                        +91 88472 262327
+                        +91 88472 62327
                     </a>
                 </div>
 
