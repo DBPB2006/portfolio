@@ -6,24 +6,7 @@ const Footer = () => {
         <footer className="py-16 mt-20 relative z-10 bg-[var(--color-bg-surface)] border-t border-[var(--color-border)]">
             <div className="max-w-6xl mx-auto px-4 flex flex-col items-center">
 
-                <div className="w-full max-w-2xl mx-auto mb-20 opacity-0-init animate-fade-in-up">
-                    <h3 className="text-[var(--color-primary)] font-bold tracking-widest uppercase text-xs mb-8 flex items-center justify-center gap-3">
-                        <span className="text-lg">🚀</span> What I Bring
-                    </h3>
-                    <ul className="text-[var(--color-text-main)] text-[15px] font-medium leading-relaxed space-y-4 mx-auto max-w-lg">
-                        <li className="flex gap-4 items-start border-l-2 border-[var(--color-border)] pl-4 hover:border-[var(--color-primary)] transition-colors">
-                            <span>Strong foundation in Data Structures & Algorithms</span>
-                        </li>
-                        <li className="flex gap-4 items-start border-l-2 border-[var(--color-border)] pl-4 hover:border-[var(--color-primary)] transition-colors">
-                            <span>Experience building full-stack systems from scratch</span>
-                        </li>
-                        <li className="flex gap-4 items-start border-l-2 border-[var(--color-border)] pl-4 hover:border-[var(--color-primary)] transition-colors">
-                            <span>Focus on scalable and efficient architectures</span>
-                        </li>
-                    </ul>
-                </div>
 
-                <div className="w-24 h-[1px] bg-[var(--color-border)] mx-auto mb-16 opacity-0-init animate-fade-in-up"></div>
 
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[var(--color-text-bright)] mb-6 text-center tracking-tight opacity-0-init animate-fade-in-up">Let's Build Scalable <br /><span className="italic font-light">Systems Together.</span></h2>
                 <p className="text-[var(--color-text-main)] font-medium text-center mb-12 opacity-0-init animate-fade-in-up animate-delay-100 uppercase tracking-widest text-xs">Open to internships and full-stack engineering roles.</p>

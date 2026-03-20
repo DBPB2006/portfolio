@@ -2,7 +2,7 @@ import React from 'react';
 
 const Education = () => {
     return (
-        <section id="education" className="py-16 px-4 relative max-w-4xl mx-auto w-full">
+        <section id="education" className="py-8 px-4 relative max-w-4xl mx-auto w-full">
             <div className="flex flex-col items-center mb-10 opacity-0-init animate-fade-in-up">
                 <span className="text-[var(--color-primary)] font-bold tracking-widest uppercase text-xs mb-4 border-b-2 border-[var(--color-primary)] pb-1 inline-block">Education</span>
                 <h2 className="text-4xl md:text-5xl font-black text-[var(--color-text-bright)] mb-2 tracking-tight text-center">Academic <span className="italic font-light">History</span></h2>

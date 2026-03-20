@@ -104,7 +104,7 @@ export default function SkillsBox() {
 
   // Precompute all skill targets in a concentric arc layout
   const allSkillsWithTargets = useMemo(() => {
-    const radius = 260;
+    const radius = windowWidth < 640 ? 140 : windowWidth < 1024 ? 180 : 220;
     const spread = 1.6; // Slightly increased from 1.4 to accommodate more icons
     const centerAngle = Math.PI / 2;
 
@@ -116,7 +116,7 @@ export default function SkillsBox() {
       const angle = start + (end - start) * step;
 
       const x = Math.cos(angle) * radius;
-      const y = -Math.sin(angle) * radius;
+      const y = -Math.sin(angle) * radius + (windowWidth < 640 ? 30 : 50);
 
       return {
         ...skill,
@@ -126,16 +126,18 @@ export default function SkillsBox() {
     });
   }, [skillsWithPhysics, windowWidth]);
 
+  const isDesktop = windowWidth > 768;
+
   return (
     <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center w-full select-none"
+      onMouseEnter={() => isDesktop && setIsHovered(true)}
+      onMouseLeave={() => isDesktop && setIsHovered(false)}
+      className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start w-full select-none"
     >
       {/* LEFT COLUMN: Toolkit Arc + Box */}
-      <div className="relative w-full flex flex-col items-center pt-0 pb-12">
+      <div className="relative w-full flex flex-col items-center justify-center pt-0 pb-12 overflow-visible">
         {/* Editorial Header - Compact */}
-        <div className="z-50 text-center mb-20 pointer-events-none">
+        <div className="z-50 text-center mb-10 pointer-events-none">
           <h2 className="text-3xl md:text-4xl font-black font-outfit text-[var(--color-text-bright)] mb-2 tracking-tighter uppercase italic opacity-95">
             Toolkit
           </h2>
@@ -148,141 +150,141 @@ export default function SkillsBox() {
           </div>
         </div>
 
-        <div className="relative w-full flex justify-center pt-40 sm:pt-56 md:pt-64 lg:pt-72 overflow-hidden sm:overflow-visible">
+        <div className="relative w-full flex flex-col items-center justify-center pt-28 sm:pt-36 md:pt-44 lg:pt-52 overflow-visible">
           {/* Structural Wrapper: Anchors both the toolbox and the icon arc */}
-          <div className="relative w-[360px] h-[220px] transform scale-[0.55] sm:scale-[0.7] md:scale-[0.85] xl:scale-100 origin-top mb-[-100px] sm:mb-[-60px] md:mb-[-20px] xl:mb-4">
+          <div className="relative w-[260px] sm:w-[300px] md:w-[340px] h-[160px] sm:h-[180px] md:h-[200px] mb-4">
 
-          {/* 3D SOLID PRISM TOOLBOX */}
-          <div className="absolute inset-0 z-40 shadow-2xl"
-            style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}>
+            {/* 3D SOLID PRISM TOOLBOX */}
+            <div className="absolute inset-0 z-40 shadow-2xl"
+              style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}>
 
-            {/* BOX INTERIOR BASE */}
-            <div className="absolute inset-x-[2px] top-0 bottom-[2px] bg-[#6b4428] opacity-50 transform translate-z-[-74px]"></div>
-            <div className="absolute inset-x-0 top-0 bottom-0 bg-black/40 blur-md transform translate-z-[-73px]"></div>
+              {/* BOX INTERIOR BASE */}
+              <div className="absolute inset-x-[2px] top-0 bottom-[2px] bg-[#6b4428] opacity-50 transform translate-z-[-74px]"></div>
+              <div className="absolute inset-x-0 top-0 bottom-0 bg-black/40 blur-md transform translate-z-[-73px]"></div>
 
-            {/* SIDES OF THE PRISM */}
-            {/* BACK WALL */}
-            <div className="absolute inset-0 bg-[#bd8e5e] border-[1px] border-[var(--color-text-bright)]/20 transform translate-z-[-75px] z-10">
-              <div className="absolute top-0 inset-x-0 h-[100px] bg-[#bd8e5e] border-[1px] border-[var(--color-text-bright)]/20 origin-top shadow-sm"
-                style={{ transform: 'rotateX(110deg)' }}></div>
-            </div>
-
-            {/* LEFT WALL */}
-            <div className="absolute inset-y-0 left-0 w-[150px] bg-[#a67c51] border-[1px] border-[var(--color-text-bright)]/10 origin-left transform rotateY(-90deg) translateZ(0px) z-20">
-              <div className="absolute inset-0 bg-black/5"></div>
-              <div className="absolute top-0 inset-x-0 h-[100px] bg-[#a67c51] border-[1px] border-[var(--color-text-bright)]/20 origin-top shadow-sm"
-                style={{ transform: 'rotateX(-115deg)' }}></div>
-            </div>
-
-            {/* RIGHT WALL */}
-            <div className="absolute inset-y-0 right-0 w-[150px] bg-[#a67c51] border-[1px] border-[var(--color-text-bright)]/10 origin-right transform rotateY(90deg) translateZ(0px) z-20">
-              <div className="absolute inset-0 bg-black/5"></div>
-              <div className="absolute top-0 inset-x-0 h-[100px] bg-[#a67c51] border-[1px] border-[var(--color-text-bright)]/20 origin-top shadow-sm"
-                style={{ transform: 'rotateX(-115deg)' }}></div>
-            </div>
-
-            {/* FRONT WALL */}
-            <div className="absolute inset-0 bg-[#deb887] border-[1px] border-[var(--color-text-bright)] z-50 flex items-center justify-center shadow-2xl overflow-hidden"
-              style={{
-                transform: 'translateZ(75px)',
-                backgroundImage: 'repeating-linear-gradient(90deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 6px)'
-              }}>
-              <div className="absolute top-0 inset-x-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent opacity-50"></div>
-              <div className="absolute inset-0 opacity-[0.03]"
-                style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px)', backgroundSize: '100% 3px' }}></div>
-              <div className="px-10 py-4 border-[2px] border-[var(--color-text-bright)]/20 rounded-sm bg-[var(--color-bg-base)]/5 z-10 shadow-inner">
-                <span className="text-[var(--color-text-bright)] font-black tracking-[0.5em] text-2xl uppercase italic opacity-80">TOOLKIT</span>
+              {/* SIDES OF THE PRISM */}
+              {/* BACK WALL */}
+              <div className="absolute inset-0 bg-[#bd8e5e] border-[1px] border-[var(--color-text-bright)]/20 transform translate-z-[-75px] z-10">
+                <div className="absolute top-0 inset-x-0 h-[100px] bg-[#bd8e5e] border-[1px] border-[var(--color-text-bright)]/20 origin-top shadow-sm"
+                  style={{ transform: 'rotateX(110deg)' }}></div>
               </div>
-              <div className="absolute top-0 inset-x-0 h-[120px] bg-[#d2a679] border-[1px] border-[var(--color-text-bright)] origin-top shadow-md z-50"
-                style={{ transform: 'rotateX(-125deg)' }}></div>
+
+              {/* LEFT WALL */}
+              <div className="absolute inset-y-0 left-0 w-[150px] bg-[#a67c51] border-[1px] border-[var(--color-text-bright)]/10 origin-left transform rotateY(-90deg) translateZ(0px) z-20">
+                <div className="absolute inset-0 bg-black/5"></div>
+                <div className="absolute top-0 inset-x-0 h-[100px] bg-[#a67c51] border-[1px] border-[var(--color-text-bright)]/20 origin-top shadow-sm"
+                  style={{ transform: 'rotateX(-115deg)' }}></div>
+              </div>
+
+              {/* RIGHT WALL */}
+              <div className="absolute inset-y-0 right-0 w-[150px] bg-[#a67c51] border-[1px] border-[var(--color-text-bright)]/10 origin-right transform rotateY(90deg) translateZ(0px) z-20">
+                <div className="absolute inset-0 bg-black/5"></div>
+                <div className="absolute top-0 inset-x-0 h-[100px] bg-[#a67c51] border-[1px] border-[var(--color-text-bright)]/20 origin-top shadow-sm"
+                  style={{ transform: 'rotateX(-115deg)' }}></div>
+              </div>
+
+              {/* FRONT WALL */}
+              <div className="absolute inset-0 bg-[#deb887] border-[1px] border-[var(--color-text-bright)] z-50 flex items-center justify-center shadow-2xl overflow-hidden"
+                style={{
+                  transform: 'translateZ(75px)',
+                  backgroundImage: 'repeating-linear-gradient(90deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 6px)'
+                }}>
+                <div className="absolute top-0 inset-x-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent opacity-50"></div>
+                <div className="absolute inset-0 opacity-[0.03]"
+                  style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px)', backgroundSize: '100% 3px' }}></div>
+                <div className="px-10 py-4 border-[2px] border-[var(--color-text-bright)]/20 rounded-sm bg-[var(--color-bg-base)]/5 z-10 shadow-inner">
+                  <span className="text-[var(--color-text-bright)] font-black tracking-[0.5em] text-2xl uppercase italic opacity-80">TOOLKIT</span>
+                </div>
+                <div className="absolute top-0 inset-x-0 h-[120px] bg-[#d2a679] border-[1px] border-[var(--color-text-bright)] origin-top shadow-md z-50"
+                  style={{ transform: 'rotateX(-125deg)' }}></div>
+              </div>
+
+              {/* INTENSE GROUND SHADOW */}
+              <div className="absolute -bottom-12 left-[-25%] w-[150%] h-10 bg-black/10 blur-3xl rounded-[100%] -z-10"></div>
             </div>
 
-            {/* INTENSE GROUND SHADOW */}
-            <div className="absolute -bottom-12 left-[-25%] w-[150%] h-10 bg-black/10 blur-3xl rounded-[100%] -z-10"></div>
-          </div>
-
-          {/* Skill Icons Stage - Structurally anchored to the top-middle of the toolbox wrapper */}
-          <div className="absolute top-0 left-1/2 w-0 h-0 z-30 pointer-events-none">
-            {allSkillsWithTargets.map((skill, idx) => {
-              const variants = {
-                arc: {
-                  x: skill.targetX,
-                  y: skill.targetY,
-                  rotate: 0,
-                  scale: 1 - (skill.tier * 0.04), // Progressive scaling: 1, 0.96, 0.92, 0.88, 0.84
-                  opacity: 1,
-                  transition: {
-                    type: "spring",
-                    stiffness: 220,
-                    damping: 28,
-                    mass: 0.8,
-                    delay: idx * 0.03
+            {/* Skill Icons Stage - Structurally anchored to the top-middle of the toolbox wrapper */}
+            <div className="absolute top-0 left-1/2 w-0 h-0 z-30 pointer-events-none">
+              {allSkillsWithTargets.map((skill, idx) => {
+                const variants = {
+                  arc: {
+                    x: skill.targetX,
+                    y: skill.targetY,
+                    rotate: 0,
+                    scale: 1 - (skill.tier * 0.04), // Progressive scaling: 1, 0.96, 0.92, 0.88, 0.84
+                    opacity: 1,
+                    transition: {
+                      type: "spring",
+                      stiffness: 220,
+                      damping: 28,
+                      mass: 0.8,
+                      delay: idx * 0.03
+                    }
+                  },
+                  popcorn: {
+                    x: [0, skill.arcX, skill.arcX * 0.8],
+                    y: [20, skill.arcHeight, 20],
+                    rotate: [0, skill.rotation * 0.2, 0],
+                    scale: [0.8, 1.1, 0.9],
+                    opacity: [0, 1, 0],
+                    transition: {
+                      duration: skill.duration,
+                      repeat: Infinity,
+                      delay: skill.delay,
+                      ease: [0.23, 1, 0.32, 1],
+                      times: [0, 0.45, 1]
+                    }
                   }
-                },
-                popcorn: {
-                  x: [0, skill.arcX, skill.arcX * 0.8],
-                  y: [20, skill.arcHeight, 20],
-                  rotate: [0, skill.rotation * 0.2, 0],
-                  scale: [0.8, 1.1, 0.9],
-                  opacity: [0, 1, 0],
-                  transition: {
-                    duration: skill.duration,
-                    repeat: Infinity,
-                    delay: skill.delay,
-                    ease: [0.23, 1, 0.32, 1],
-                    times: [0, 0.45, 1]
-                  }
-                }
-              };
+                };
 
-              return (
-                <motion.div
-                  key={skill.id}
-                  className="absolute h-14 w-14"
-                  style={{ translateX: '-50%', translateY: '-100%', zIndex: hoveredIconId === skill.id ? 100 : 30 }}
-                  initial={{ opacity: 0, scale: 0.1, x: 0, y: 0 }}
-                  animate={isHovered ? "arc" : "popcorn"}
-                  variants={variants}
-                >
+                return (
                   <motion.div
-                    className="relative w-full h-full flex items-center justify-center bg-[var(--color-bg-surface)] border-[1.5px] border-[var(--color-text-bright)] rounded-full shadow-sm cursor-pointer pointer-events-auto group"
-                    onMouseEnter={() => setHoveredIconId(skill.id)}
-                    onMouseLeave={() => setHoveredIconId(null)}
-                    whileHover={isHovered ? {
-                      backgroundColor: 'var(--color-primary)',
-                      scale: 1.05,
-                      y: -4,
-                      transition: { duration: 0.2 }
-                    } : {}}
+                    key={skill.id}
+                    className="absolute h-10 w-10 sm:h-12 sm:w-12"
+                    style={{ translateX: '-50%', translateY: '-100%', zIndex: hoveredIconId === skill.id ? 100 : 30 }}
+                    initial={{ opacity: 0, scale: 0.1, x: 0, y: 0 }}
+                    animate={isHovered ? "arc" : "popcorn"}
+                    variants={variants}
                   >
                     <motion.div
-                      animate={isHovered ? { rotate: 0 } : {}}
-                      whileHover={isHovered ? { scale: 1.25, rotate: 6 } : {}}
-                      className="text-2xl text-[var(--color-text-bright)] group-hover:text-white transition-colors duration-200"
+                      className="relative w-full h-full flex items-center justify-center bg-[var(--color-bg-surface)] border-[1.5px] border-[var(--color-text-bright)] rounded-full shadow-sm cursor-pointer pointer-events-auto group"
+                      onMouseEnter={() => setHoveredIconId(skill.id)}
+                      onMouseLeave={() => setHoveredIconId(null)}
+                      whileHover={isHovered ? {
+                        backgroundColor: 'var(--color-primary)',
+                        scale: 1.05,
+                        y: -4,
+                        transition: { duration: 0.2 }
+                      } : {}}
                     >
-                      <skill.icon />
-                    </motion.div>
+                      <motion.div
+                        animate={isHovered ? { rotate: 0 } : {}}
+                        whileHover={isHovered ? { scale: 1.25, rotate: 6 } : {}}
+                        className="text-xl sm:text-2xl text-[var(--color-text-bright)] group-hover:text-white transition-colors duration-200"
+                      >
+                        <skill.icon />
+                      </motion.div>
 
-                    <AnimatePresence>
-                      {isHovered && hoveredIconId === skill.id && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9, y: 0 }}
-                          animate={{ opacity: 1, scale: 1, y: -48 }}
-                          exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                          className="absolute pointer-events-none bg-[var(--color-text-bright)] text-[var(--color-bg-base)] text-[8px] font-black px-3 py-1.5 rounded-none uppercase tracking-[0.2em] whitespace-nowrap shadow-xl z-50"
-                        >
-                          {skill.name}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                      <AnimatePresence>
+                        {isHovered && hoveredIconId === skill.id && (
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 0 }}
+                            animate={{ opacity: 1, scale: 1, y: -48 }}
+                            exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                            className="absolute pointer-events-none bg-[var(--color-text-bright)] text-[var(--color-bg-base)] text-[8px] font-black px-3 py-1.5 rounded-none uppercase tracking-[0.2em] whitespace-nowrap shadow-xl z-50"
+                          >
+                            {skill.name}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
                   </motion.div>
-                </motion.div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
       {/* RIGHT COLUMN: Capability-based Tool Categories */}
       <div className="w-full">

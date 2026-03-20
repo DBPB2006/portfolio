@@ -223,7 +223,7 @@ const ProjectCaseStudy = ({ project, isReversed }) => {
 
 const Projects = () => {
     return (
-        <section id="projects" className="pt-12 pb-24 px-6 relative max-w-6xl mx-auto w-full">
+        <section id="projects" className="py-8 px-6 relative max-w-6xl mx-auto w-full">
             {/* Header */}
             <div className="mb-20 opacity-0-init animate-fade-in-up border-b-4 border-[var(--color-text-bright)] pb-12">
                 <span className="text-[var(--color-primary)] font-black tracking-[0.4em] uppercase text-[10px] mb-6 block">Strategic Engineering Synthesis</span>

@@ -22,39 +22,39 @@ function MainLayout() {
 
       <Navbar />
 
-      <main className="relative z-10 flex flex-col pt-24">
+      <main className="relative z-10 flex flex-col pt-16">
         {/* Hero Section */}
-        <header id="hero" className="mb-20">
+        <header id="hero" className="mb-10">
           <Hero />
         </header>
 
         {/* ROW 1: About & What I Do */}
-        <section className="max-w-7xl mx-auto px-4 py-12 w-full">
+        <section className="max-w-7xl mx-auto px-4 py-8 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             {/* Left Column: About */}
-            <div id="about" className="h-full scroll-mt-32">
+            <div id="about" className="h-full scroll-mt-24">
               <About />
             </div>
             
             {/* Right Column: What I Do */}
-            <div id="whatido" className="h-full scroll-mt-32">
+            <div id="whatido" className="h-full scroll-mt-24">
               <WhatIDo />
             </div>
           </div>
         </section>
 
         {/* ROW 2: Toolkit & Tool Categories (Wrapped inside SkillsBox) */}
-        <section id="skills" className="max-w-7xl mx-auto px-4 py-12 w-full mb-12 scroll-mt-32">
+        <section id="skills" className="max-w-7xl mx-auto px-4 py-8 w-full mb-8 scroll-mt-24">
           <SkillsBox />
         </section>
 
         {/* Remaining Sections */}
-        <div className="flex flex-col space-y-20 py-20">
-          <section id="projects" className="scroll-mt-32"><Projects /></section>
-          <section id="training" className="scroll-mt-32"><Training /></section>
-          <section id="certifications" className="scroll-mt-32"><Certifications /></section>
-          <section id="extracurricular" className="scroll-mt-32"><ExtraCurriculars /></section>
-          <section id="education" className="scroll-mt-32"><Education /></section>
+        <div className="flex flex-col space-y-8 py-10">
+          <section id="projects" className="scroll-mt-24"><Projects /></section>
+          <section id="training" className="scroll-mt-24"><Training /></section>
+          <section id="certifications" className="scroll-mt-24"><Certifications /></section>
+          <section id="extracurricular" className="scroll-mt-24"><ExtraCurriculars /></section>
+          <section id="education" className="scroll-mt-24"><Education /></section>
         </div>
       </main>
 
