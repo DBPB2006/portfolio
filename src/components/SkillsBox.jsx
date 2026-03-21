@@ -137,8 +137,9 @@ export default function SkillsBox() {
 
   return (
     <div
-      onMouseEnter={() => isDesktop && setIsHovered(true)}
-      onMouseLeave={() => isDesktop && setIsHovered(false)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
       className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-10 items-start w-full select-none pt-10 lg:pt-20 px-4 mb-20 md:mb-0"
     >
       {/* LEFT COLUMN: Toolkit Arc + Box */}
@@ -258,6 +259,7 @@ export default function SkillsBox() {
                       className="relative w-full h-full flex items-center justify-center bg-[var(--color-bg-surface)] border-[1.5px] border-[var(--color-text-bright)] rounded-full shadow-sm cursor-pointer pointer-events-auto group"
                       onMouseEnter={() => setHoveredIconId(skill.id)}
                       onMouseLeave={() => setHoveredIconId(null)}
+                      onTouchStart={() => setHoveredIconId(skill.id)}
                       whileHover={isHovered ? {
                         backgroundColor: 'var(--color-primary)',
                         scale: 1.05,
