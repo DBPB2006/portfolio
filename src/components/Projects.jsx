@@ -104,10 +104,11 @@ const ProjectCaseStudy = ({ project, isReversed }) => {
                     </span>
                     <span className="text-[var(--color-text-muted)] text-[10px] font-bold uppercase tracking-widest">{project.timeline}</span>
                 </div>
-                <h3 className={`text-5xl md:text-8xl font-black text-[var(--color-text-bright)] mb-4 tracking-tighter leading-[0.8] ${isReversed ? 'lg:text-right' : ''}`}>
+                <h3 className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-[var(--color-text-bright)] mb-4 tracking-tighter leading-[0.9] ${isReversed ? 'lg:text-right' : ''}`}>
                     {project.title}
                 </h3>
             </div>
+
 
             {/* CORE CONTENT GRID */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch mb-24">
@@ -226,7 +227,7 @@ const Projects = () => {
             {/* Header */}
             <div className="mb-20 opacity-0-init animate-fade-in-up border-b-4 border-[var(--color-text-bright)] pb-12">
                 <span className="text-[var(--color-primary)] font-black tracking-[0.4em] uppercase text-[10px] mb-6 block">Strategic Engineering Synthesis</span>
-                <h2 className="text-6xl md:text-[10rem] font-black text-[var(--color-text-bright)] tracking-tighter leading-[0.75]">
+                <h2 className="text-5xl md:text-7xl lg:text-8xl xl:text-[10rem] font-black text-[var(--color-text-bright)] tracking-tighter leading-[0.8]">
                     Built <br />
                     <span className="italic font-light opacity-60">Realities.</span>
                 </h2>

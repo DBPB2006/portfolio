@@ -104,8 +104,14 @@ export default function SkillsBox() {
 
   // Precompute all skill targets in a concentric arc layout
   const allSkillsWithTargets = useMemo(() => {
-    const radius = windowWidth < 640 ? 140 : windowWidth < 1024 ? 180 : 220;
-    const spread = 1.6; // Slightly increased from 1.4 to accommodate more icons
+    const isMobile = windowWidth < 640;
+    const isTablet = windowWidth < 1024;
+    
+    // Significantly smaller radius on mobile to stay within screen bounds
+    const radius = isMobile ? 120 : isTablet ? 160 : 220;
+    
+    // Adjust spread to prevent crowding on small screens
+    const spread = isMobile ? 1.2 : 1.6; 
     const centerAngle = Math.PI / 2;
 
     const start = centerAngle - spread;
@@ -116,7 +122,8 @@ export default function SkillsBox() {
       const angle = start + (end - start) * step;
 
       const x = Math.cos(angle) * radius;
-      const y = -Math.sin(angle) * radius + (windowWidth < 640 ? 30 : 50);
+      // Adjust vertical offset for mobile
+      const y = -Math.sin(angle) * radius + (isMobile ? 20 : 50);
 
       return {
         ...skill,
@@ -132,12 +139,12 @@ export default function SkillsBox() {
     <div
       onMouseEnter={() => isDesktop && setIsHovered(true)}
       onMouseLeave={() => isDesktop && setIsHovered(false)}
-      className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start w-full select-none pt-20"
+      className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-10 items-start w-full select-none pt-10 lg:pt-20 px-4 mb-20 md:mb-0"
     >
       {/* LEFT COLUMN: Toolkit Arc + Box */}
       <div className="relative w-full flex flex-col items-center justify-center pt-8 pb-12 overflow-visible">
         {/* Editorial Header - Compact */}
-        <div className="z-50 text-center mb-24 pointer-events-none">
+        <div className="z-50 text-center mb-16 lg:mb-24 pointer-events-none">
           <h2 className="text-3xl md:text-4xl font-black font-outfit text-[var(--color-text-bright)] mb-2 tracking-tighter uppercase italic opacity-95">
             Toolkit
           </h2>
@@ -150,17 +157,18 @@ export default function SkillsBox() {
           </div>
         </div>
 
-        <div className="relative w-full flex flex-col items-center justify-center pt-28 sm:pt-36 md:pt-44 lg:pt-52 overflow-visible">
+        <div className="relative w-full flex flex-col items-center justify-center pt-24 sm:pt-36 md:pt-44 lg:pt-52 overflow-visible">
           {/* Structural Wrapper: Anchors both the toolbox and the icon arc */}
-          <div className="relative w-[260px] sm:w-[300px] md:w-[340px] h-[160px] sm:h-[180px] md:h-[200px] mb-4">
+          <div className="relative w-[220px] sm:w-[300px] md:w-[340px] h-[140px] sm:h-[180px] md:h-[200px] mb-4 scale-90 sm:scale-100">
 
             {/* 3D SOLID PRISM TOOLBOX */}
             <div className="absolute inset-0 z-40 shadow-2xl"
               style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}>
 
               {/* BOX INTERIOR BASE */}
-              <div className="absolute inset-x-[2px] top-0 bottom-[2px] bg-[#6b4428] opacity-50 transform translate-z-[-74px]"></div>
-              <div className="absolute inset-x-0 top-0 bottom-0 bg-black/40 blur-md transform translate-z-[-73px]"></div>
+              <div className="absolute inset-x-[2px] top-0 bottom-[2px] bg-[#6b4428] opacity-50 transform translateZ(-74px)"></div>
+              <div className="absolute inset-x-0 top-0 bottom-0 bg-black/40 blur-md transform translateZ(-73px)"></div>
+
 
               {/* SIDES OF THE PRISM */}
               {/* BACK WALL */}
