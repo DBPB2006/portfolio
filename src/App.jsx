@@ -11,10 +11,19 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import ProjectView from './components/ProjectView';
 import MemoryBookView from './components/MemoryBookView';
+import ToolDrawer from './components/ToolDrawer';
 import SkillsBox from './components/SkillsBox';
 import WhatIDo from './components/WhatIDo';
 
 function MainLayout() {
+  const [windowWidth, setWindowWidth] = React.useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+  
+  React.useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="bg-[var(--color-bg-base)] min-h-screen text-[var(--color-text-main)] antialiased relative selection:bg-[var(--color-primary)] selection:text-white">
       {/* Subtle Architectural Grid Background */}
@@ -43,9 +52,9 @@ function MainLayout() {
           </div>
         </section>
 
-        {/* ROW 2: Toolkit & Tool Categories (Wrapped inside SkillsBox) */}
-        <section id="skills" className="max-w-7xl mx-auto section-padding py-20 lg:py-32 w-full mb-16 scroll-mt-32">
-          <SkillsBox />
+        {/* ROW 2: Tool Drawer System (Mobile) / Toolbox (Desktop) */}
+        <section id="skills" className="max-w-7xl mx-auto section-padding py-20 w-full mb-16 scroll-mt-32">
+          {windowWidth < 1024 ? <ToolDrawer /> : <SkillsBox />}
         </section>
 
         {/* Remaining Sections */}

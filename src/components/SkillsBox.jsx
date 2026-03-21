@@ -7,7 +7,7 @@ import {
   SiCplusplus, SiC, SiOpenjdk
 } from 'react-icons/si';
 
-const skillsData = [
+export const skillsData = [
 
   // OUTER ARC — Frameworks / Libraries
   { id: 'react', name: 'React', icon: SiReact, tier: 0, category: 'frontend' },
@@ -40,7 +40,7 @@ const skillsData = [
 
 ];
 
-const skillCategories = [
+export const skillCategories = [
   {
     id: "frontend",
     title: "Interactive Frontend Systems",
@@ -77,11 +77,37 @@ export default function SkillsBox() {
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredIconId, setHoveredIconId] = useState(null);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+  const containerRef = React.useRef(null);
+  const [containerWidth, setContainerWidth] = useState(
+    typeof window !== 'undefined' ? (window.innerWidth < 640 ? 260 : window.innerWidth < 1024 ? 320 : 380) : 380
+  );
+
+  const isDesktop = windowWidth > 1024;
+  const isMobile = windowWidth < 640;
+  const isTablet = windowWidth >= 640 && windowWidth <= 1024;
 
   React.useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
+    if (typeof window === 'undefined') return;
+    
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.getBoundingClientRect().width);
+    }
+    
+    let timeoutId = null;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setWindowWidth(window.innerWidth);
+        if (containerRef.current) {
+          setContainerWidth(containerRef.current.getBoundingClientRect().width);
+        }
+      }, 100);
+    };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   // Extract the active category globally based on the hovered icon
@@ -104,42 +130,35 @@ export default function SkillsBox() {
 
   // Precompute all skill targets in a concentric arc layout
   const allSkillsWithTargets = useMemo(() => {
-    const isMobile = windowWidth < 640;
-    const isTablet = windowWidth < 1024;
-    
-    // Significantly smaller radius on mobile to stay within screen bounds
-    const radius = isMobile ? 120 : isTablet ? 160 : 220;
-    
-    // Adjust spread to prevent crowding on small screens
-    const spread = isMobile ? 1.2 : 1.6; 
-    const centerAngle = Math.PI / 2;
+    // 1. Density Control: Simplify elements logically per device space
+    const visibleCount = isMobile ? 12 : isTablet ? 16 : skillsWithPhysics.length;
+    const itemsToDisplay = skillsWithPhysics.slice(0, visibleCount);
 
-    const start = centerAngle - spread;
-    const end = centerAngle + spread;
+    // 2. Container Geometry: Scale radius safely against container dimension constraints
+    const radius = isMobile ? containerWidth * 0.7 : containerWidth * 0.6;
 
-    return skillsWithPhysics.map((skill, i) => {
-      const step = skillsWithPhysics.length === 1 ? 0.5 : i / (skillsWithPhysics.length - 1);
-      const angle = start + (end - start) * step;
+    // 3. Spread configuration: Adjust tightly without crowding to prevent horizontal clipping
+    const spread = isMobile ? 1.1 : 1.3;
+    const centerAngle = Math.PI / 2; // Start neutrally
 
-      const x = Math.cos(angle) * radius;
-      // Adjust vertical offset for mobile
-      const y = -Math.sin(angle) * radius + (isMobile ? 20 : 50);
+    return itemsToDisplay.map((skill, i) => {
+      const step = itemsToDisplay.length === 1 ? 0.5 : i / (itemsToDisplay.length - 1);
+      const angle = centerAngle - spread + (spread * 2) * step;
 
+      // 4. Stable Vertical Position based purely off geometric trigonometric endpoints
       return {
         ...skill,
-        targetX: x,
-        targetY: y,
+        targetX: Math.cos(angle) * radius,
+        targetY: -Math.sin(angle) * radius, 
       };
     });
-  }, [skillsWithPhysics, windowWidth]);
-
-  const isDesktop = windowWidth > 768;
+  }, [skillsWithPhysics, containerWidth, isMobile, isTablet]);
 
   return (
     <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={() => setIsHovered(true)}
+      onMouseEnter={() => isDesktop && setIsHovered(true)}
+      onMouseLeave={() => isDesktop && setIsHovered(false)}
+      onTouchStart={() => !isDesktop && setIsHovered(true)}
       className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-10 items-start w-full select-none pt-10 lg:pt-20 px-4 mb-20 md:mb-0"
     >
       {/* LEFT COLUMN: Toolkit Arc + Box */}
@@ -158,9 +177,18 @@ export default function SkillsBox() {
           </div>
         </div>
 
-        <div className="relative w-full flex flex-col items-center justify-center pt-24 sm:pt-36 md:pt-44 lg:pt-52 overflow-visible">
+        <div className="relative w-full flex flex-col items-center justify-center pt-32 sm:pt-44 md:pt-56 lg:pt-64 overflow-visible">
           {/* Structural Wrapper: Anchors both the toolbox and the icon arc */}
-          <div className="relative w-[220px] sm:w-[300px] md:w-[340px] h-[140px] sm:h-[180px] md:h-[200px] mb-4 scale-90 sm:scale-100">
+          <div
+            ref={containerRef}
+            className="
+              relative
+              w-full max-w-[260px] sm:max-w-[320px] md:max-w-[380px]
+              h-[180px] sm:h-[220px] md:h-[240px]
+              flex flex-col items-center justify-center
+              mb-4 mx-auto
+            "
+          >
 
             {/* 3D SOLID PRISM TOOLBOX */}
             <div className="absolute inset-0 z-40 shadow-2xl"
@@ -209,11 +237,11 @@ export default function SkillsBox() {
               </div>
 
               {/* INTENSE GROUND SHADOW */}
-              <div className="absolute -bottom-12 left-[-25%] w-[150%] h-10 bg-black/10 blur-3xl rounded-[100%] -z-10"></div>
+              <div className="absolute -bottom-12 left-[-25%] w-[150%] h-10 bg-black/10 blur-3xl rounded-[100%] z-0"></div>
             </div>
 
-            {/* Skill Icons Stage - Structurally anchored to the top-middle of the toolbox wrapper */}
-            <div className="absolute top-0 left-1/2 w-0 h-0 z-30 pointer-events-none">
+            {/* Skill Icons Stage - Origin point perfectly mapping to the visual toolbox lid */}
+            <div className="absolute top-[15px] left-1/2 w-0 h-0 z-[60] pointer-events-none">
               {allSkillsWithTargets.map((skill, idx) => {
                 const variants = {
                   arc: {
@@ -232,7 +260,7 @@ export default function SkillsBox() {
                   },
                   popcorn: {
                     x: [0, skill.arcX, skill.arcX * 0.8],
-                    y: [20, skill.arcHeight, 20],
+                    y: [0, skill.arcHeight, 0],
                     rotate: [0, skill.rotation * 0.2, 0],
                     scale: [0.8, 1.1, 0.9],
                     opacity: [0, 1, 0],
@@ -249,10 +277,10 @@ export default function SkillsBox() {
                 return (
                   <motion.div
                     key={skill.id}
-                    className="absolute h-10 w-10 sm:h-12 sm:w-12"
-                    style={{ translateX: '-50%', translateY: '-100%', zIndex: hoveredIconId === skill.id ? 100 : 30 }}
+                    className="absolute h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12"
+                    style={{ translateX: '-50%', translateY: '-100%', zIndex: hoveredIconId === skill.id ? 100 : 70 }}
                     initial={{ opacity: 0, scale: 0.1, x: 0, y: 0 }}
-                    animate={isHovered ? "arc" : "popcorn"}
+                    animate={isDesktop ? (isHovered ? "arc" : "popcorn") : "arc"}
                     variants={variants}
                   >
                     <motion.div
@@ -260,10 +288,10 @@ export default function SkillsBox() {
                       onMouseEnter={() => setHoveredIconId(skill.id)}
                       onMouseLeave={() => setHoveredIconId(null)}
                       onTouchStart={() => setHoveredIconId(skill.id)}
-                      whileHover={isHovered ? {
+                      whileHover={isDesktop ? {
                         backgroundColor: 'var(--color-primary)',
-                        scale: 1.05,
-                        y: -4,
+                        scale: 1.1,
+                        y: -8,
                         transition: { duration: 0.2 }
                       } : {}}
                     >
