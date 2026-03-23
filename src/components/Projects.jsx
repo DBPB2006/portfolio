@@ -137,13 +137,13 @@ const ProjectCaseStudy = ({ project, isReversed }) => {
                         <div className="p-8 border-[1.5px] border-[var(--color-text-bright)] bg-white shadow-[8px_8px_0px_var(--color-primary)] flex flex-col h-full gap-8 justify-between">
                             <div>
                                 <h4 className="font-outfit text-sm font-black uppercase tracking-widest mb-6 flex items-center gap-3">
-                                    <span>🚀</span>
+                                    <Cpu className="w-5 h-5 text-[var(--color-primary)]" />
                                     Engineering Highlights
                                 </h4>
                                 <ul className="space-y-4">
                                     {project.highlights.map((highlight, idx) => (
                                         <li key={idx} className="flex gap-3 text-[13px] font-medium leading-relaxed opacity-90 items-start">
-                                            <span className="text-[var(--color-primary)] leading-none mt-1">▹</span>
+                                            <div className="w-1.5 h-1.5 bg-[var(--color-primary)] mt-1.5 shrink-0 transform rotate-45"></div>
                                             <span>{highlight}</span>
                                         </li>
                                     ))}

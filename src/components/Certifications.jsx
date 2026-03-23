@@ -13,7 +13,7 @@ const Certifications = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                    { title: "Cloud Computing", org: "NPTEL", date: "Jun 2025", link: "https://ibb.co/jmSMh03" },
+                    { title: "Cloud Computing", org: "NPTEL", date: "Apr 2025", link: "https://ibb.co/jmSMh03" },
                     { title: "Programming with JavaScript", org: "Coursera", date: "Aug 2024", link: "https://coursera.org/share/90ae1efac2b0dc88d41902df89587bd9" },
                     { title: "Legacy Responsive Web Design V8", org: "Free Code Camp", date: "Oct 2023", link: "https://freecodecamp.org/certification/bhuvan2006/responsive-web-design" }
                 ].map((cert, idx) => (

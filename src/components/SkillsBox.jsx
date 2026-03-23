@@ -88,11 +88,11 @@ export default function SkillsBox() {
 
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     if (containerRef.current) {
       setContainerWidth(containerRef.current.getBoundingClientRect().width);
     }
-    
+
     let timeoutId = null;
     const handleResize = () => {
       clearTimeout(timeoutId);
@@ -149,7 +149,7 @@ export default function SkillsBox() {
       return {
         ...skill,
         targetX: Math.cos(angle) * radius,
-        targetY: -Math.sin(angle) * radius, 
+        targetY: -Math.sin(angle) * radius,
       };
     });
   }, [skillsWithPhysics, containerWidth, isMobile, isTablet]);
@@ -171,7 +171,7 @@ export default function SkillsBox() {
           <div className="flex items-center justify-center gap-4">
             <div className="h-px w-6 bg-[var(--color-text-muted)] opacity-20"></div>
             <p className="text-[var(--color-text-muted)] text-[7px] font-bold tracking-[0.4em] uppercase">
-              ARC PATTERN
+              TECH STACK
             </p>
             <div className="h-px w-6 bg-[var(--color-text-muted)] opacity-20"></div>
           </div>

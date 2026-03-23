@@ -9,7 +9,7 @@ const About = () => {
                     <span className="text-[var(--color-primary)] font-bold tracking-widest uppercase text-xs mb-4 border-b-2 border-[var(--color-primary)] pb-1 inline-block">About Me</span>
                     <h2 className="text-4xl md:text-5xl font-black text-[var(--color-text-bright)] tracking-tight mb-6">Full-Stack <br /><span className="italic font-light">System Builder</span></h2>
                     <p className="text-[16px] font-medium text-[var(--color-text-main)] leading-relaxed mb-6 opacity-90 max-w-md">
-                        I am an engineer focused on designing and implementing practical, efficient, and robust applications from the database up to the user interface.
+                        Full-stack developer with a strong foundation in data structures and system design, passionate about building scalable and interactive web applications. I enjoy blending logical problem-solving with creative user experiences, leveraging modern technologies to develop secure, performance-driven products.
                     </p>
                 </div>
                 <div className="bg-white/50 border-[1.5px] border-[var(--color-text-bright)] p-8 w-full shadow-[8px_8px_0px_var(--color-border)] hover:shadow-[8px_8px_0px_var(--color-primary)] transition-all flex-grow">

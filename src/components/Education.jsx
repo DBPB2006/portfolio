@@ -6,7 +6,7 @@ const Education = () => {
             institution: "Lovely Professional University",
             degree: "B.Tech Computer Science Engineering",
             info: "CGPA: 8.45",
-            period: "2023 – Present",
+            period: "Since August 2023",
             location: "Phagwara, Punjab"
         },
         {
